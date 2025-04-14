@@ -27,7 +27,8 @@ makedepends=(
 )
 provides=("${_pkgbase}=${_pkgmaj}")
 source=("https://github.com/gazebosim/${_pkgbase}/archive/${pkgname}_${pkgver}.tar.gz")
-sha256sums=('ba6349c7a226b9669eb94d8a9586381bafa065ba9508263b722bad453fba0f4c')
+sha256sums=('ba6349c7a226b9669eb94d8a9586381bafa065ba9508263b722bad453fba0f4c'
+  '8b5f5c08a4a7669bd25b272f937e291da76996bbf280f7b7b9111f8ddf873c1a')
 
 _build_dir="${_pkgbase}-${pkgname}_${pkgver}/build"
 

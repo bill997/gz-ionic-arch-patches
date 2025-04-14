@@ -35,8 +35,10 @@ makedepends=(
   'vulkan-headers'
 )
 provides=("${_pkgbase}=${_pkgmaj}")
-source=("https://github.com/gazebosim/${_pkgbase}/archive/${pkgname}_${pkgver}.tar.gz")
-sha256sums=('5ed385dba7f7258b7032f188601dea80fa5bc74de460d7a78122f3cf6e0339b1')
+source=("https://github.com/gazebosim/${_pkgbase}/archive/${pkgname}_${pkgver}.tar.gz"
+  "arch-ionic.patch")
+sha256sums=('5ed385dba7f7258b7032f188601dea80fa5bc74de460d7a78122f3cf6e0339b1'
+  '6f6c176a68fd9c3df983e434a329d3b0bc5440f3d302d67f9512f520fbc40d63')
 
 prepare() {
   patch -d "${_pkgbase}-${pkgname}_${pkgver}" -Np1 -i ../../arch-ionic.patch

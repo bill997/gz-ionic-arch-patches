@@ -37,8 +37,10 @@ makedepends=(
   'python'
 )
 provides=("${_pkgbase}=${_pkgmaj}")
-source=("https://github.com/gazebosim/${_pkgbase}/archive/${pkgname}_${pkgver}.tar.gz")
-sha256sums=('0df6611ce61ea75aa7fbbe65e38313faadf60ab341df234babc3fe2cfe9f1adb')
+source=("https://github.com/gazebosim/${_pkgbase}/archive/${pkgname}_${pkgver}.tar.gz"
+  "arch-ionic.patch")
+sha256sums=('0df6611ce61ea75aa7fbbe65e38313faadf60ab341df234babc3fe2cfe9f1adb'
+  '814bbcf2655a4a3798d3950b43c1b97949c8b76df1ab4b5f05b49c6568d468ac')
 
 prepare() {
   patch -d "${_pkgbase}-${pkgname}_${pkgver}" -Np1 -i ../../arch-ionic.patch
