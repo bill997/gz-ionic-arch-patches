@@ -1,0 +1,218 @@
+Only in gz-transport-gz-transport14_14.0.1-modified/: build
+diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/detail/Node.hh gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/detail/Node.hh
+--- gz-transport-gz-transport14_14.0.1/include/gz/transport/detail/Node.hh	2025-02-13 06:51:45.000000000 +1100
++++ gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/detail/Node.hh	2025-04-11 17:01:31.710027172 +1000
+@@ -34,7 +34,7 @@
+         const std::string &_topic,
+         const AdvertiseMessageOptions &_options)
+     {
+-      return this->Advertise(_topic, MessageT().GetTypeName(), _options);
++      return this->Advertise(_topic, (std::string)MessageT().GetTypeName(), _options);
+     }
+ 
+     //////////////////////////////////////////////////
+@@ -267,7 +267,7 @@
+         this->Shared()->myReplierAddress,
+         this->Shared()->replierId.ToString(),
+         this->Shared()->pUuid, this->NodeUuid(),
+-        RequestT().GetTypeName(), ReplyT().GetTypeName(), _options);
++        (std::string)RequestT().GetTypeName(), (std::string)ReplyT().GetTypeName(), _options);
+ 
+       if (!this->Shared()->AdvertisePublisher(publisher))
+       {
+@@ -420,8 +420,8 @@
+         std::lock_guard<std::recursive_mutex> lk(this->Shared()->mutex);
+         localResponserFound = this->Shared()->repliers.FirstHandler(
+               fullyQualifiedTopic,
+-              RequestT().GetTypeName(),
+-              ReplyT().GetTypeName(),
++              (std::string)RequestT().GetTypeName(),
++              (std::string)ReplyT().GetTypeName(),
+               repHandler);
+       }
+ 
+@@ -458,7 +458,7 @@
+         if (this->Shared()->TopicPublishers(fullyQualifiedTopic, addresses))
+         {
+           this->Shared()->SendPendingRemoteReqs(fullyQualifiedTopic,
+-            RequestT().GetTypeName(), ReplyT().GetTypeName());
++            (std::string)RequestT().GetTypeName(), (std::string)ReplyT().GetTypeName());
+         }
+         else
+         {
+@@ -551,7 +551,7 @@
+       // If the responser is within my process.
+       IRepHandlerPtr repHandler;
+       if (this->Shared()->repliers.FirstHandler(fullyQualifiedTopic,
+-        _request.GetTypeName(), _reply.GetTypeName(), repHandler))
++        (std::string)_request.GetTypeName(), (std::string)_reply.GetTypeName(), repHandler))
+       {
+         // There is a responser in my process, let's use it.
+         _result = repHandler->RunLocalCallback(_request, _reply);
+@@ -567,7 +567,7 @@
+       if (this->Shared()->TopicPublishers(fullyQualifiedTopic, addresses))
+       {
+         this->Shared()->SendPendingRemoteReqs(fullyQualifiedTopic,
+-          _request.GetTypeName(), _reply.GetTypeName());
++          (std::string)_request.GetTypeName(), (std::string)_reply.GetTypeName());
+       }
+       else
+       {
+diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/RepHandler.hh gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/RepHandler.hh
+--- gz-transport-gz-transport14_14.0.1/include/gz/transport/RepHandler.hh	2025-02-13 06:51:45.000000000 +1100
++++ gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/RepHandler.hh	2025-04-11 16:07:25.368592915 +1000
+@@ -237,13 +237,13 @@
+       // Documentation inherited.
+       public: virtual std::string ReqTypeName() const
+       {
+-        return Req().GetTypeName();
++        return (std::string)Req().GetTypeName();
+       }
+ 
+       // Documentation inherited.
+       public: virtual std::string RepTypeName() const
+       {
+-        return Rep().GetTypeName();
++        return (std::string)Rep().GetTypeName();
+       }
+ 
+       /// \brief Create a specific protobuf message given its serialized data.
+diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/ReqHandler.hh gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/ReqHandler.hh
+--- gz-transport-gz-transport14_14.0.1/include/gz/transport/ReqHandler.hh	2025-02-13 06:51:45.000000000 +1100
++++ gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/ReqHandler.hh	2025-04-11 15:43:28.035992795 +1000
+@@ -285,13 +285,13 @@
+       // Documentation inherited.
+       public: virtual std::string ReqTypeName() const
+       {
+-        return Req().GetTypeName();
++        return std::string(Req().GetTypeName());
+       }
+ 
+       // Documentation inherited.
+       public: virtual std::string RepTypeName() const
+       {
+-        return Rep().GetTypeName();
++        return std::string(Rep().GetTypeName());
+       }
+ 
+       /// \brief Protobuf message containing the request's parameters.
+@@ -382,7 +382,7 @@
+       public: virtual std::string ReqTypeName() const
+       {
+         if (this->reqMsg)
+-          return this->reqMsg->GetTypeName();
++          return std::string(this->reqMsg->GetTypeName());
+         else
+         {
+           std::cerr << "ReqHandler::ReqTypeName() Warning: Using ReqTypeName() "
+@@ -395,7 +395,7 @@
+       public: virtual std::string RepTypeName() const
+       {
+         if (this->repMsg)
+-          return this->repMsg->GetTypeName();
++          return std::string(this->repMsg->GetTypeName());
+         else
+         {
+           std::cerr << "ReqHandler::RepTypeName() Warning: Using RepTypeName() "
+diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/SubscriptionHandler.hh gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/SubscriptionHandler.hh
+--- gz-transport-gz-transport14_14.0.1/include/gz/transport/SubscriptionHandler.hh	2025-02-13 06:51:45.000000000 +1100
++++ gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/SubscriptionHandler.hh	2025-04-11 15:45:23.842088766 +1000
+@@ -188,7 +188,7 @@
+       // Documentation inherited.
+       public: std::string TypeName()
+       {
+-        return T().GetTypeName();
++        return std::string(T().GetTypeName());
+       }
+ 
+       /// \brief Set the callback for this handler.
+diff -ura gz-transport-gz-transport14_14.0.1/parameters/src/Client.cc gz-transport-gz-transport14_14.0.1-modified/parameters/src/Client.cc
+--- gz-transport-gz-transport14_14.0.1/parameters/src/Client.cc	2025-02-13 06:51:45.000000000 +1100
++++ gz-transport-gz-transport14_14.0.1-modified/parameters/src/Client.cc	2025-04-11 16:01:44.486970407 +1000
+@@ -216,7 +216,7 @@
+     return ParameterResult{
+       ParameterResultType::InvalidType,
+       _parameterName,
+-      _msg.GetDescriptor()->name()};
++      (std::string)_msg.GetDescriptor()->name()};
+   }
+   return ParameterResult{ParameterResultType::Unexpected, _parameterName};
+ }
+diff -ura gz-transport-gz-transport14_14.0.1/parameters/src/Registry.cc gz-transport-gz-transport14_14.0.1-modified/parameters/src/Registry.cc
+--- gz-transport-gz-transport14_14.0.1/parameters/src/Registry.cc	2025-02-13 06:51:45.000000000 +1100
++++ gz-transport-gz-transport14_14.0.1-modified/parameters/src/Registry.cc	2025-04-11 16:09:37.390439591 +1000
+@@ -144,7 +144,7 @@
+       auto * decl = _res.add_parameter_declarations();
+       decl->set_name(paramPair.first);
+       decl->set_type(addGzMsgsPrefix(
+-        paramPair.second->GetDescriptor()->name()));
++        (std::string)paramPair.second->GetDescriptor()->name()));
+     }
+   }
+   return true;
+@@ -238,7 +238,7 @@
+   const std::string & _parameterName,
+   const google::protobuf::Message & _msg)
+ {
+-  auto protoType = addGzMsgsPrefix(_msg.GetDescriptor()->name());
++  auto protoType = addGzMsgsPrefix((std::string)_msg.GetDescriptor()->name());
+   auto newParam = gz::msgs::Factory::New(protoType);
+   if (!newParam) {
+     return ParameterResult{
+@@ -270,7 +270,7 @@
+     return ParameterResult{
+       ParameterResultType::InvalidType,
+       _parameterName,
+-      addGzMsgsPrefix(protoType)};
++      addGzMsgsPrefix((std::string)protoType)};
+   }
+   _parameter.CopyFrom(*it->second);
+   return ParameterResult{ParameterResultType::Success};
+@@ -290,12 +290,12 @@
+       _parameterName};
+   }
+   const auto & protoType = it->second->GetDescriptor()->name();
+-  _parameter = gz::msgs::Factory::New(protoType);
++  _parameter = gz::msgs::Factory::New((std::string)protoType);
+   if (!_parameter) {
+     return ParameterResult{
+       ParameterResultType::InvalidType,
+       _parameterName,
+-      addGzMsgsPrefix(protoType)};
++      addGzMsgsPrefix((std::string)protoType)};
+ 
+   }
+   _parameter->CopyFrom(*it->second);
+@@ -320,7 +320,7 @@
+     return ParameterResult{
+       ParameterResultType::InvalidType,
+       _parameterName,
+-      addGzMsgsPrefix(it->second->GetDescriptor()->name())};
++      (std::string)addGzMsgsPrefix((std::string)it->second->GetDescriptor()->name())};
+   }
+   it->second = std::move(_value);
+   return ParameterResult{ParameterResultType::Success};
+diff -ura gz-transport-gz-transport14_14.0.1/src/cmd/gz.cc gz-transport-gz-transport14_14.0.1-modified/src/cmd/gz.cc
+--- gz-transport-gz-transport14_14.0.1/src/cmd/gz.cc	2025-02-13 06:51:45.000000000 +1100
++++ gz-transport-gz-transport14_14.0.1-modified/src/cmd/gz.cc	2025-04-11 16:00:16.967464518 +1000
+@@ -186,7 +186,7 @@
+   {
+     // Create the node and advertise the topic
+     Node node;
+-    auto pub = node.Advertise(_topic, msg->GetTypeName());
++    auto pub = node.Advertise(_topic, (std::string)msg->GetTypeName());
+ 
+     // Publish the message
+     if (pub)
+diff -ura gz-transport-gz-transport14_14.0.1/src/Node.cc gz-transport-gz-transport14_14.0.1-modified/src/Node.cc
+--- gz-transport-gz-transport14_14.0.1/src/Node.cc	2025-02-13 06:51:45.000000000 +1100
++++ gz-transport-gz-transport14_14.0.1-modified/src/Node.cc	2025-04-11 15:58:13.569129703 +1000
+@@ -420,7 +420,7 @@
+     };
+ 
+     if (!this->dataPtr->shared->Publish(this->dataPtr->publisher.Topic(),
+-          msgBuffer, msgSize, myDeallocator, _msg.GetTypeName()))
++          msgBuffer, msgSize, myDeallocator, (std::string)_msg.GetTypeName()))
+     {
+       return false;
+     }

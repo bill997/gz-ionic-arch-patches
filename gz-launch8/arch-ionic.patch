@@ -1,0 +1,12 @@
+diff -ura gz-launch-gz-launch8_8.0.1/plugins/websocket_server/WebsocketServer.cc gz-launch-gz-launch8_8.0.1-modified/plugins/websocket_server/WebsocketServer.cc
+--- gz-launch-gz-launch8_8.0.1/plugins/websocket_server/WebsocketServer.cc	2025-02-13 06:51:26.000000000 +1100
++++ gz-launch-gz-launch8_8.0.1-modified/plugins/websocket_server/WebsocketServer.cc	2025-04-11 17:49:41.618894453 +1000
+@@ -43,7 +43,7 @@
+ /// \param[in] _topic The topic name string.
+ /// \param[in] _type The message type string.
+ /// \return A string that is the frame header.
+-#define BUILD_HEADER(_op, _topic, _type) ((_op)+","+(_topic)+","+(_type)+",")
++#define BUILD_HEADER(_op, _topic, _type) ((_op)+","+(_topic)+","+((std::string)_type)+",")
+ 
+ /// \brief Construction a complete websocket frame.
+ /// \param[in] _op The operation string.
