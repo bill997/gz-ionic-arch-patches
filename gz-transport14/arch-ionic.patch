@@ -1,7 +1,6 @@
-Only in gz-transport-gz-transport14_14.0.1-modified/: build
-diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/detail/Node.hh gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/detail/Node.hh
---- gz-transport-gz-transport14_14.0.1/include/gz/transport/detail/Node.hh	2025-02-13 06:51:45.000000000 +1100
-+++ gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/detail/Node.hh	2025-04-11 17:01:31.710027172 +1000
+diff -ura -x .git gz-transport/include/gz/transport/detail/Node.hh gz-transport-modified/include/gz/transport/detail/Node.hh
+--- gz-transport/include/gz/transport/detail/Node.hh	2025-04-17 10:50:12.636319294 +1000
++++ gz-transport-modified/include/gz/transport/detail/Node.hh	2025-04-17 10:19:09.428976087 +1000
 @@ -34,7 +34,7 @@
          const std::string &_topic,
          const AdvertiseMessageOptions &_options)
@@ -58,9 +57,9 @@ diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/detail/Node.hh
        }
        else
        {
-diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/RepHandler.hh gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/RepHandler.hh
---- gz-transport-gz-transport14_14.0.1/include/gz/transport/RepHandler.hh	2025-02-13 06:51:45.000000000 +1100
-+++ gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/RepHandler.hh	2025-04-11 16:07:25.368592915 +1000
+diff -ura -x .git gz-transport/include/gz/transport/RepHandler.hh gz-transport-modified/include/gz/transport/RepHandler.hh
+--- gz-transport/include/gz/transport/RepHandler.hh	2025-04-17 10:50:12.635319161 +1000
++++ gz-transport-modified/include/gz/transport/RepHandler.hh	2025-04-17 10:19:09.429279260 +1000
 @@ -237,13 +237,13 @@
        // Documentation inherited.
        public: virtual std::string ReqTypeName() const
@@ -77,9 +76,9 @@ diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/RepHandler.hh 
        }
  
        /// \brief Create a specific protobuf message given its serialized data.
-diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/ReqHandler.hh gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/ReqHandler.hh
---- gz-transport-gz-transport14_14.0.1/include/gz/transport/ReqHandler.hh	2025-02-13 06:51:45.000000000 +1100
-+++ gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/ReqHandler.hh	2025-04-11 15:43:28.035992795 +1000
+diff -ura -x .git gz-transport/include/gz/transport/ReqHandler.hh gz-transport-modified/include/gz/transport/ReqHandler.hh
+--- gz-transport/include/gz/transport/ReqHandler.hh	2025-04-17 10:50:12.635319161 +1000
++++ gz-transport-modified/include/gz/transport/ReqHandler.hh	2025-04-17 10:19:09.429483359 +1000
 @@ -285,13 +285,13 @@
        // Documentation inherited.
        public: virtual std::string ReqTypeName() const
@@ -114,9 +113,9 @@ diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/ReqHandler.hh 
          else
          {
            std::cerr << "ReqHandler::RepTypeName() Warning: Using RepTypeName() "
-diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/SubscriptionHandler.hh gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/SubscriptionHandler.hh
---- gz-transport-gz-transport14_14.0.1/include/gz/transport/SubscriptionHandler.hh	2025-02-13 06:51:45.000000000 +1100
-+++ gz-transport-gz-transport14_14.0.1-modified/include/gz/transport/SubscriptionHandler.hh	2025-04-11 15:45:23.842088766 +1000
+diff -ura -x .git gz-transport/include/gz/transport/SubscriptionHandler.hh gz-transport-modified/include/gz/transport/SubscriptionHandler.hh
+--- gz-transport/include/gz/transport/SubscriptionHandler.hh	2025-04-17 10:50:12.635319161 +1000
++++ gz-transport-modified/include/gz/transport/SubscriptionHandler.hh	2025-04-17 10:19:09.429682799 +1000
 @@ -188,7 +188,7 @@
        // Documentation inherited.
        public: std::string TypeName()
@@ -126,9 +125,9 @@ diff -ura gz-transport-gz-transport14_14.0.1/include/gz/transport/SubscriptionHa
        }
  
        /// \brief Set the callback for this handler.
-diff -ura gz-transport-gz-transport14_14.0.1/parameters/src/Client.cc gz-transport-gz-transport14_14.0.1-modified/parameters/src/Client.cc
---- gz-transport-gz-transport14_14.0.1/parameters/src/Client.cc	2025-02-13 06:51:45.000000000 +1100
-+++ gz-transport-gz-transport14_14.0.1-modified/parameters/src/Client.cc	2025-04-11 16:01:44.486970407 +1000
+diff -ura -x .git gz-transport/parameters/src/Client.cc gz-transport-modified/parameters/src/Client.cc
+--- gz-transport/parameters/src/Client.cc	2025-04-17 10:50:12.644579485 +1000
++++ gz-transport-modified/parameters/src/Client.cc	2025-04-17 10:19:09.429867420 +1000
 @@ -216,7 +216,7 @@
      return ParameterResult{
        ParameterResultType::InvalidType,
@@ -138,9 +137,9 @@ diff -ura gz-transport-gz-transport14_14.0.1/parameters/src/Client.cc gz-transpo
    }
    return ParameterResult{ParameterResultType::Unexpected, _parameterName};
  }
-diff -ura gz-transport-gz-transport14_14.0.1/parameters/src/Registry.cc gz-transport-gz-transport14_14.0.1-modified/parameters/src/Registry.cc
---- gz-transport-gz-transport14_14.0.1/parameters/src/Registry.cc	2025-02-13 06:51:45.000000000 +1100
-+++ gz-transport-gz-transport14_14.0.1-modified/parameters/src/Registry.cc	2025-04-11 16:09:37.390439591 +1000
+diff -ura -x .git gz-transport/parameters/src/Registry.cc gz-transport-modified/parameters/src/Registry.cc
+--- gz-transport/parameters/src/Registry.cc	2025-04-17 10:50:12.644579485 +1000
++++ gz-transport-modified/parameters/src/Registry.cc	2025-04-17 10:19:09.430051249 +1000
 @@ -144,7 +144,7 @@
        auto * decl = _res.add_parameter_declarations();
        decl->set_name(paramPair.first);
@@ -192,9 +191,54 @@ diff -ura gz-transport-gz-transport14_14.0.1/parameters/src/Registry.cc gz-trans
    }
    it->second = std::move(_value);
    return ParameterResult{ParameterResultType::Success};
-diff -ura gz-transport-gz-transport14_14.0.1/src/cmd/gz.cc gz-transport-gz-transport14_14.0.1-modified/src/cmd/gz.cc
---- gz-transport-gz-transport14_14.0.1/src/cmd/gz.cc	2025-02-13 06:51:45.000000000 +1100
-+++ gz-transport-gz-transport14_14.0.1-modified/src/cmd/gz.cc	2025-04-11 16:00:16.967464518 +1000
+diff -ura -x .git gz-transport/src/CIface_TEST.cc gz-transport-modified/src/CIface_TEST.cc
+--- gz-transport/src/CIface_TEST.cc	2025-04-17 10:50:12.645924135 +1000
++++ gz-transport-modified/src/CIface_TEST.cc	2025-04-17 10:21:42.641980441 +1000
+@@ -96,7 +96,7 @@
+   msg.SerializeToArray(buffer, size);
+ 
+   EXPECT_EQ(0,
+-    gzTransportPublish(node, topic, buffer, msg.GetTypeName().c_str()));
++    gzTransportPublish(node, topic, buffer, msg.GetTypeName().data()));
+ 
+   EXPECT_EQ(2, count);
+ 
+@@ -105,7 +105,7 @@
+   // Unsubscribe
+   ASSERT_EQ(0, gzTransportUnsubscribe(node, topic));
+   EXPECT_EQ(0,
+-    gzTransportPublish(node, topic, buffer, msg.GetTypeName().c_str()));
++    gzTransportPublish(node, topic, buffer, msg.GetTypeName().data()));
+   EXPECT_EQ(0, count);
+ 
+   free(buffer);
+@@ -153,12 +153,12 @@
+ 
+   // Publish on "bar" partition
+   EXPECT_EQ(0,
+-    gzTransportPublish(nodeBar, topic, buffer, msg.GetTypeName().c_str()));
++    gzTransportPublish(nodeBar, topic, buffer, msg.GetTypeName().data()));
+   EXPECT_EQ(1, count);
+ 
+   // Publish on default partition
+   EXPECT_EQ(0,
+-    gzTransportPublish(nodeBar, topic, buffer, msg.GetTypeName().c_str()));
++    gzTransportPublish(nodeBar, topic, buffer, msg.GetTypeName().data()));
+   EXPECT_EQ(2, count);
+ 
+   count = 0;
+@@ -166,7 +166,7 @@
+   // Unsubscribe
+   ASSERT_EQ(0, gzTransportUnsubscribe(nodeBar, topic));
+   EXPECT_EQ(0,
+-    gzTransportPublish(nodeBar, topic, buffer, msg.GetTypeName().c_str()));
++    gzTransportPublish(nodeBar, topic, buffer, msg.GetTypeName().data()));
+   EXPECT_EQ(0, count);
+ 
+   free(buffer);
+diff -ura -x .git gz-transport/src/cmd/gz.cc gz-transport-modified/src/cmd/gz.cc
+--- gz-transport/src/cmd/gz.cc	2025-04-17 10:50:12.648173883 +1000
++++ gz-transport-modified/src/cmd/gz.cc	2025-04-17 10:19:09.430249898 +1000
 @@ -186,7 +186,7 @@
    {
      // Create the node and advertise the topic
@@ -204,9 +248,44 @@ diff -ura gz-transport-gz-transport14_14.0.1/src/cmd/gz.cc gz-transport-gz-trans
  
      // Publish the message
      if (pub)
-diff -ura gz-transport-gz-transport14_14.0.1/src/Node.cc gz-transport-gz-transport14_14.0.1-modified/src/Node.cc
---- gz-transport-gz-transport14_14.0.1/src/Node.cc	2025-02-13 06:51:45.000000000 +1100
-+++ gz-transport-gz-transport14_14.0.1-modified/src/Node.cc	2025-04-11 15:58:13.569129703 +1000
+diff -ura -x .git gz-transport/src/cmd/gz_TEST.cc gz-transport-modified/src/cmd/gz_TEST.cc
+--- gz-transport/src/cmd/gz_TEST.cc	2025-04-17 10:50:12.648173883 +1000
++++ gz-transport-modified/src/cmd/gz_TEST.cc	2025-04-17 10:36:06.354551394 +1000
+@@ -142,7 +142,7 @@
+   transport::Node node;
+   node.Subscribe("/foo", topicCB);
+   node.Subscribe("/bar", genericCb);
+-  node.SubscribeRaw("/baz", cbRaw, msgs::StringMsg().GetTypeName());
++  node.SubscribeRaw("/baz", cbRaw, std::string(msgs::StringMsg().GetTypeName()));
+   node.Subscribe("/no", topicCB);
+   node.Unsubscribe("/no");
+ 
+diff -ura -x .git gz-transport/src/HandlerStorage_TEST.cc gz-transport-modified/src/HandlerStorage_TEST.cc
+--- gz-transport/src/HandlerStorage_TEST.cc	2025-04-17 10:50:12.645924135 +1000
++++ gz-transport-modified/src/HandlerStorage_TEST.cc	2025-04-17 10:24:50.747190299 +1000
+@@ -67,8 +67,8 @@
+   msgs::Int32 rep1Msg;
+   bool result;
+   msgs::Vector3d reqMsg;
+-  std::string reqType = reqMsg.GetTypeName();
+-  std::string rep1Type = rep1Msg.GetTypeName();
++  std::string reqType = std::string(reqMsg.GetTypeName());
++  std::string rep1Type = std::string(rep1Msg.GetTypeName());
+ 
+   reqMsg.set_x(1.0);
+   reqMsg.set_y(2.0);
+@@ -234,7 +234,7 @@
+   EXPECT_FALSE(subs.FirstHandler(topic, "incorrect type", handler));
+ 
+   // Now try to retrieve the first callback with the correct type.
+-  EXPECT_TRUE(subs.FirstHandler(topic, msg.GetTypeName(), handler));
++  EXPECT_TRUE(subs.FirstHandler(topic, std::string(msg.GetTypeName()), handler));
+ 
+   // Verify the handler.
+   EXPECT_EQ(handler->TypeName(), sub1HandlerPtr->TypeName());
+diff -ura -x .git gz-transport/src/Node.cc gz-transport-modified/src/Node.cc
+--- gz-transport/src/Node.cc	2025-04-17 10:50:12.646320629 +1000
++++ gz-transport-modified/src/Node.cc	2025-04-17 10:19:09.430493224 +1000
 @@ -420,7 +420,7 @@
      };
  
@@ -216,3 +295,104 @@ diff -ura gz-transport-gz-transport14_14.0.1/src/Node.cc gz-transport-gz-transpo
      {
        return false;
      }
+diff -ura -x .git gz-transport/src/Node_TEST.cc gz-transport-modified/src/Node_TEST.cc
+--- gz-transport/src/Node_TEST.cc	2025-04-17 10:50:12.647320763 +1000
++++ gz-transport-modified/src/Node_TEST.cc	2025-04-17 10:29:18.479336685 +1000
+@@ -346,8 +346,8 @@
+     // Request a valid service using RequestRaw.
+     std::string reqStr, repStr, repTypeName;
+     req.SerializeToString(&reqStr);
+-    EXPECT_TRUE(this->node.RequestRaw(g_topic, reqStr, req.GetTypeName(),
+-          rep.GetTypeName(), timeout, repStr, result));
++    EXPECT_TRUE(this->node.RequestRaw(g_topic, reqStr, std::string(req.GetTypeName()),
++          std::string(rep.GetTypeName()), timeout, repStr, result));
+     rep.ParseFromString(repStr);
+     ASSERT_TRUE(result);
+     EXPECT_EQ(rep.data(), data);
+@@ -558,7 +558,7 @@
+   EXPECT_TRUE(node1.SubscribedTopics().empty());
+   EXPECT_TRUE(node1.AdvertisedServices().empty());
+ 
+-  auto pub1 = node1.Advertise(g_topic, msg.GetTypeName());
++  auto pub1 = node1.Advertise(g_topic, std::string(msg.GetTypeName()));
+   EXPECT_TRUE(pub1);
+ 
+   auto advertisedTopics = node1.AdvertisedTopics();
+@@ -747,7 +747,7 @@
+   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+ 
+   // Publish a first message.
+-  EXPECT_TRUE(pub.PublishRaw(msg.SerializeAsString(), msg.GetTypeName()));
++  EXPECT_TRUE(pub.PublishRaw(msg.SerializeAsString(), std::string(msg.GetTypeName())));
+ 
+   // Give some time to the subscribers.
+   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+@@ -758,7 +758,7 @@
+   reset();
+ 
+   // Publish a second message on topic.
+-  EXPECT_TRUE(pub.PublishRaw(msg.SerializeAsString(), msg.GetTypeName()));
++  EXPECT_TRUE(pub.PublishRaw(msg.SerializeAsString(), std::string(msg.GetTypeName())));
+ 
+   // Give some time to the subscribers.
+   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+@@ -787,7 +787,7 @@
+   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+ 
+   // Publish a first message.
+-  EXPECT_TRUE(pub.PublishRaw(msg.SerializeAsString(), msg.GetTypeName()));
++  EXPECT_TRUE(pub.PublishRaw(msg.SerializeAsString(), std::string(msg.GetTypeName())));
+ 
+   // Give some time to the subscribers.
+   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+@@ -798,7 +798,7 @@
+   reset();
+ 
+   // Publish a second message on topic.
+-  EXPECT_TRUE(pub.PublishRaw(msg.SerializeAsString(), msg.GetTypeName()));
++  EXPECT_TRUE(pub.PublishRaw(msg.SerializeAsString(), std::string(msg.GetTypeName())));
+ 
+   // Give some time to the subscribers.
+   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+diff -ura -x .git gz-transport/test/integration/test_executables/twoProcsPubSubSubscriber_aux.cc gz-transport-modified/test/integration/test_executables/twoProcsPubSubSubscriber_aux.cc
+--- gz-transport/test/integration/test_executables/twoProcsPubSubSubscriber_aux.cc	2025-04-17 10:50:12.654321697 +1000
++++ gz-transport-modified/test/integration/test_executables/twoProcsPubSubSubscriber_aux.cc	2025-04-17 10:40:11.839736523 +1000
+@@ -100,7 +100,7 @@
+ 
+   // Add a raw subscription to `node`
+   EXPECT_TRUE(node.SubscribeRaw(g_topic, cbRaw,
+-                                msgs::Vector3d().GetTypeName()));
++                                std::string(msgs::Vector3d().GetTypeName())));
+ 
+   int interval = 100;
+ 
+diff -ura -x .git gz-transport/test/integration/twoProcsPubSub.cc gz-transport-modified/test/integration/twoProcsPubSub.cc
+--- gz-transport/test/integration/twoProcsPubSub.cc	2025-04-17 10:50:12.654321697 +1000
++++ gz-transport-modified/test/integration/twoProcsPubSub.cc	2025-04-17 10:38:28.020979345 +1000
+@@ -166,7 +166,7 @@
+   // Publish messages for a few seconds
+   for (auto i = 0; i < 10; ++i)
+   {
+-    EXPECT_TRUE(pub.PublishRaw(msg.SerializeAsString(), msg.GetTypeName()));
++    EXPECT_TRUE(pub.PublishRaw(msg.SerializeAsString(), std::string(msg.GetTypeName())));
+     std::this_thread::sleep_for(std::chrono::milliseconds(500));
+   }
+ }
+@@ -204,7 +204,7 @@
+ 
+   transport::Node node;
+   EXPECT_TRUE(node.SubscribeRaw(g_topic, cbRaw,
+-                                msgs::Int32().GetTypeName()));
++                                std::string(msgs::Int32().GetTypeName())));
+ 
+   // Wait some time before publishing.
+   std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+@@ -290,7 +290,7 @@
+   transport::Node node3;
+   EXPECT_TRUE(node1.SubscribeRaw(g_topic, wrongCb, "wrong.msg.type"));
+   EXPECT_TRUE(node2.SubscribeRaw(g_topic, correctCb,
+-                                 msgs::Vector3d().GetTypeName()));
++                                 std::string(msgs::Vector3d().GetTypeName())));
+   EXPECT_TRUE(node3.SubscribeRaw(g_topic, genericCb));
+ 
+ 
