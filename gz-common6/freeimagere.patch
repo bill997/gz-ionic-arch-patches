@@ -1,0 +1,43 @@
+Only in gz-common-gz-common6_6.2.1-patched/: .cache
+Only in gz-common-gz-common6_6.2.1-patched/: compile_commands.json
+diff -ura gz-common-gz-common6_6.2.1/graphics/src/Image.cc gz-common-gz-common6_6.2.1-patched/graphics/src/Image.cc
+--- gz-common-gz-common6_6.2.1/graphics/src/Image.cc	2025-11-13 11:38:58.000000000 +1100
++++ gz-common-gz-common6_6.2.1-patched/graphics/src/Image.cc	2025-12-26 12:06:20.294205565 +1100
+@@ -17,12 +17,15 @@
+ #ifdef BOOL
+ #undef BOOL
+ #endif
++
+ #include <FreeImage.h>
+ 
+-#include <cstdint>
++// FreeImageRE has dropped some things that we rely on...
++typedef bool BOOL;
++typedef unsigned char BYTE;
++typedef unsigned int WORD;
++
+ #include <cstring>
+-#include <string>
+-#include <vector>
+ 
+ #include <gz/common/Console.hh>
+ #include <gz/common/Util.hh>
+@@ -441,15 +444,15 @@
+        this->dataPtr->colorType == FIC_RGBALPHA) &&
+       (this->dataPtr->imageType == FIT_BITMAP))
+   {
+-    RGBQUAD firgb;
++    FIRGBA8 firgb;
+     if (FreeImage_GetPixelColor(this->dataPtr->bitmap, _x, _y, &firgb) == FALSE)
+     {
+       gzerr << "Failed to get pixel value at ["
+             << _x << ", " << _y << "] \n";
+       return clr;
+     }
+-    clr.Set(firgb.rgbRed / 255.0f, firgb.rgbGreen / 255.0f,
+-            firgb.rgbBlue / 255.0f);
++    clr.Set(firgb.red / 255.0f, firgb.green / 255.0f,
++            firgb.blue / 255.0f);
+   }
+   else
+   {
